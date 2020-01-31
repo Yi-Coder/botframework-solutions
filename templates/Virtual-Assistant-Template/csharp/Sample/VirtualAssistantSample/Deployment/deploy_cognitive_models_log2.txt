@@ -1,0 +1,186 @@
+
+Access denied due to invalid subscription key or wrong API endpoint. Make sure to provide a valid key for an active subscription and use a correct regional API endpoint for your resource.
+
+LUIS Command Line Interface - © 2018 Microsoft Corporation
+
+Imports an application to LUIS, the application's structure should be included in in the request body.
+
+Usage:
+luis import application --in jSONApp.json --appName <string>
+
+Command arguments are:
+ --in (required)   The object to send in the body of the request                                                                                                                                                    
+                   {                                                                                                                                                                                                
+                     "intents": [                                                                                                                                                                                   
+                       {                                                                                                                                                                                            
+                         "name": "Greeting"                                                                                                                                                                         
+                       }                                                                                                                                                                                            
+                     ],                                                                                                                                                                                             
+                     "entities": [                                                                                                                                                                                  
+                       {                                                                                                                                                                                            
+                         "name": "userName",                                                                                                                                                                        
+                         "roles": []                                                                                                                                                                                
+                       }                                                                                                                                                                                            
+                     ],                                                                                                                                                                                             
+                     "composites": [],                                                                                                                                                                              
+                     "closedLists": [],                                                                                                                                                                             
+                     "regex_entities": [],                                                                                                                                                                          
+                     "model_features": [],                                                                                                                                                                          
+                     "regex_features": [],                                                                                                                                                                          
+                     "utterances": [                                                                                                                                                                                
+                       {                                                                                                                                                                                            
+                         "text": "Hi",                                                                                                                                                                              
+                         "intent": "Greeting",                                                                                                                                                                      
+                         "entities": []                                                                                                                                                                             
+                       }                                                                                                                                                                                            
+                     ],                                                                                                                                                                                             
+                     "patterns": [],                                                                                                                                                                                
+                     "patternAnyEntities": [],                                                                                                                                                                      
+                     "prebuiltEntities": [],                                                                                                                                                                        
+                     "luis_schema_version": "3.0.0",                                                                                                                                                                
+                     "versionId": "0.1",                                                                                                                                                                            
+                     "name": "test1",                                                                                                                                                                               
+                     "desc": "",                                                                                                                                                                                    
+                     "culture": "en-us"                                                                                                                                                                             
+                   }                                                                                                                                                                                                
+ --appName         The application name to create. If not specified, the application name will be read from the imported object.                                                                                    
+ <string>                                                                                                                                                                                                           
+ --msbot           (OPTIONAL) Format the output as json for piping into msbot connect luis command                                                                                                                  
+
+Configuration and Overrides:
+ --appId           Specifies the public LUIS application id. Overrides the .luisrc value and the LUIS_APP_ID environment variable.                                                                                  
+ --authoringKey    Specifies the LUIS authoring  key (from luis.ai portal user settings page). Overrides the .luisrc value and the LUIS_AUTHORING_KEY environment variable.                                         
+ --subscriptionK…  Specifies the LUIS subscriptionKey. Overrides the .luisrc value and the LUIS_SUBSCRIPTION_KEY environment variable.                                                                              
+ --versionId       Specifies the version id. Overrides the .luisrc value and the LUIS_VERSION_ID environment variable.                                                                                              
+ --region          Specifies the authoring region for all requests. [westus|westeurope|australiaeast] Overrides the .luisrc value and the LUIS_REGION environment variable.                                         
+ --cloud           Specifies the cloud region for all requests. [com|us] Overrides the .luisrc value and the LUIS_CLOUD environment variable.                                                                       
+ --stdin           Pull in service keys from stdin in the format of that is the output of: msbot get service                                                                                                        
+ --prefix          Appends [luis-apis] prefix to all messages                                                                                                                                                       
+
+Global Arguments:
+ --help,    -h     Prints this help file.                                                                                                                                                                           
+ --version, -v     Prints the version of this cli tool                                                                                                                                                              
+ --force,   -f     Do not prompt for confirmation, force the operation                                                                                                                                              
+ --!               Dumps all documented commands to the console with descriptions                                                                                                                                   
+
+
+appId with value "true" must be of type string and a valid uuid.
+
+LUIS Command Line Interface - © 2018 Microsoft Corporation
+
+Assigns a LUIS Azure account to the application.
+
+Usage:
+luis add appazureaccount --in accountToAdd.json --appId <string>
+
+Command arguments are:
+ --in (required)               The object to send in the body of the request                                                                                                                                        
+                               {                                                                                                                                                                                    
+                                   "azureSubscriptionId": "00000000-0000-0000-0000-000000000000",                                                                                                                   
+                                   "resourceGroup": "ResourceGroupName",                                                                                                                                            
+                                   "accountName": "AccountName"                                                                                                                                                     
+                               }                                                                                                                                                                                    
+ --armToken <string>           The user's ARM token from https://resources.azure.com/api/token?plaintext=true.                                                                                                      
+ (required)                                                                                                                                                                                                         
+ --appId <string> (required)   The application ID.                                                                                                                                                                  
+
+Configuration and Overrides:
+ --appId                       Specifies the public LUIS application id. Overrides the .luisrc value and the LUIS_APP_ID environment variable.                                                                      
+ --authoringKey                Specifies the LUIS authoring  key (from luis.ai portal user settings page). Overrides the .luisrc value and the LUIS_AUTHORING_KEY environment variable.                             
+ --subscriptionKey             Specifies the LUIS subscriptionKey. Overrides the .luisrc value and the LUIS_SUBSCRIPTION_KEY environment variable.                                                                  
+ --versionId                   Specifies the version id. Overrides the .luisrc value and the LUIS_VERSION_ID environment variable.                                                                                  
+ --region                      Specifies the authoring region for all requests. [westus|westeurope|australiaeast] Overrides the .luisrc value and the LUIS_REGION environment variable.                             
+ --cloud                       Specifies the cloud region for all requests. [com|us] Overrides the .luisrc value and the LUIS_CLOUD environment variable.                                                           
+ --stdin                       Pull in service keys from stdin in the format of that is the output of: msbot get service                                                                                            
+ --prefix                      Appends [luis-apis] prefix to all messages                                                                                                                                           
+
+Global Arguments:
+ --help,    -h                 Prints this help file.                                                                                                                                                               
+ --version, -v                 Prints the version of this cli tool                                                                                                                                                  
+ --force,   -f                 Do not prompt for confirmation, force the operation                                                                                                                                  
+ --!                           Dumps all documented commands to the console with descriptions                                                                                                                       
+
+[31m Model                             [39m[31m Type               [39m[31m StatusId [39m[31m Status   [39m[31m          [39m
+ Cancel                             Intent Classifier   3         InProgr…           
+ Confirm                            Intent Classifier   3         InProgr…           
+ DirectionalReference               Entity Extractor    3         InProgr…           
+ Escalate                           Intent Classifier   3         InProgr…           
+ ExtractName                        Intent Classifier   3         InProgr…           
+ FinishTask                         Intent Classifier   3         InProgr…           
+ GoBack                             Intent Classifier   3         InProgr…           
+ Help                               Intent Classifier   3         InProgr…           
+ Logout                             Intent Classifier   3         InProgr…           
+ None                               Intent Classifier   3         InProgr…           
+ ReadAloud                          Intent Classifier   3         InProgr…           
+ Reject                             Intent Classifier   3         InProgr…           
+ Repeat                             Intent Classifier   3         InProgr…           
+ SelectAny                          Intent Classifier   3         InProgr…           
+ SelectItem                         Intent Classifier   3         InProgr…           
+ SelectNone                         Intent Classifier   3         InProgr…           
+ ShowNext                           Intent Classifier   3         InProgr…           
+ ShowPrevious                       Intent Classifier   3         InProgr…           
+ StartOver                          Intent Classifier   3         InProgr…           
+ Stop                               Intent Classifier   3         InProgr…           
+[31m Model                             [39m[31m Type               [39m[31m StatusId [39m[31m Status   [39m[31m          [39m
+ Cancel                             Intent Classifier   3         InProgr…           
+ Confirm                            Intent Classifier   3         InProgr…           
+ DirectionalReference               Entity Extractor    3         InProgr…           
+ Escalate                           Intent Classifier   3         InProgr…           
+ ExtractName                        Intent Classifier   3         InProgr…           
+ FinishTask                         Intent Classifier   3         InProgr…           
+ GoBack                             Intent Classifier   3         InProgr…           
+ Help                               Intent Classifier   3         InProgr…           
+ Logout                             Intent Classifier   3         InProgr…           
+ None                               Intent Classifier   3         InProgr…           
+ ReadAloud                          Intent Classifier   3         InProgr…           
+ Reject                             Intent Classifier   3         InProgr…           
+ Repeat                             Intent Classifier   3         InProgr…           
+ SelectAny                          Intent Classifier   3         InProgr…           
+ SelectItem                         Intent Classifier   3         InProgr…           
+ SelectNone                         Intent Classifier   3         InProgr…           
+ ShowNext                           Intent Classifier   3         InProgr…           
+ ShowPrevious                       Intent Classifier   3         InProgr…           
+ StartOver                          Intent Classifier   3         InProgr…           
+ Stop                               Intent Classifier   3         InProgr…           
+[31m Model                             [39m[31m Type               [39m[31m StatusId [39m[31m Status   [39m[31m          [39m
+ Cancel                             Intent Classifier   3         InProgr…           
+ Confirm                            Intent Classifier   3         InProgr…           
+ DirectionalReference               Entity Extractor    3         InProgr…           
+ Escalate                           Intent Classifier   3         InProgr…           
+ ExtractName                        Intent Classifier   3         InProgr…           
+ FinishTask                         Intent Classifier   3         InProgr…           
+ GoBack                             Intent Classifier   3         InProgr…           
+ Help                               Intent Classifier   3         InProgr…           
+ Logout                             Intent Classifier   3         InProgr…           
+ None                               Intent Classifier   3         InProgr…           
+ ReadAloud                          Intent Classifier   3         InProgr…           
+ Reject                             Intent Classifier   3         InProgr…           
+ Repeat                             Intent Classifier   3         InProgr…           
+ SelectAny                          Intent Classifier   3         InProgr…           
+ SelectItem                         Intent Classifier   3         InProgr…           
+ SelectNone                         Intent Classifier   3         InProgr…           
+ ShowNext                           Intent Classifier   3         InProgr…           
+ ShowPrevious                       Intent Classifier   3         InProgr…           
+ StartOver                          Intent Classifier   3         InProgr…           
+ Stop                               Intent Classifier   3         InProgr…           
+[31m Model                             [39m[31m Type               [39m[31m StatusId [39m[31m Status   [39m[31m          [39m
+ Cancel                             Intent Classifier   0         Success            
+ Confirm                            Intent Classifier   0         Success            
+ Escalate                           Intent Classifier   0         Success            
+ ExtractName                        Intent Classifier   0         Success            
+ FinishTask                         Intent Classifier   0         Success            
+ GoBack                             Intent Classifier   0         Success            
+ Help                               Intent Classifier   0         Success            
+ Logout                             Intent Classifier   0         Success            
+ None                               Intent Classifier   0         Success            
+ ReadAloud                          Intent Classifier   0         Success            
+ Reject                             Intent Classifier   0         Success            
+ Repeat                             Intent Classifier   0         Success            
+ SelectAny                          Intent Classifier   0         Success            
+ SelectItem                         Intent Classifier   0         Success            
+ SelectNone                         Intent Classifier   0         Success            
+ ShowNext                           Intent Classifier   0         Success            
+ ShowPrevious                       Intent Classifier   0         Success            
+ StartOver                          Intent Classifier   0         Success            
+ Stop                               Intent Classifier   0         Success            
+ DirectionalReference               Entity Extractor    0         Success            

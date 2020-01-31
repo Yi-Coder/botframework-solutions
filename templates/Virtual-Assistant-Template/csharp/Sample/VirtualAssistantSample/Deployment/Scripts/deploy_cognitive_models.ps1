@@ -12,18 +12,19 @@ Param(
 	[switch] $useDispatch = $true,
     [string] $languages = "en-us",
     [string] $outFolder = $(Get-Location),
-	[string] $logFile = $(Join-Path $PSScriptRoot .. "deploy_cognitive_models_log.txt")
+	[string] $logFile1 = $(Join-Path $PSScriptRoot .. "deploy_cognitive_models_log1.txt"),
+	[string] $logFile2 = $(Join-Path $PSScriptRoot .. "deploy_cognitive_models_log2.txt")
 )
 
 . $PSScriptRoot\luis_functions.ps1
 . $PSScriptRoot\qna_functions.ps1
 
 # Reset log file
-if (Test-Path $logFile) {
-	Clear-Content $logFile -Force | Out-Null
+if (Test-Path $logFile1) {
+	Clear-Content $logFile1 -Force | Out-Null
 }
 else {
-	New-Item -Path $logFile | Out-Null
+	New-Item -Path $logFile1 | Out-Null
 }
 
 # Get mandatory parameters
@@ -126,7 +127,7 @@ foreach ($language in $languageArr)
 			--name $dispatchName `
 			--luisAuthoringKey $luisAuthoringKey `
 			--luisAuthoringRegion $luisAuthoringRegion `
-			--dataFolder $dataFolder) 2>> $logFile | Out-Null
+			--dataFolder $dataFolder) 2>> $logFile1 | Out-Null
 	}
 
     # Deploy LUIS apps
@@ -143,7 +144,7 @@ foreach ($language in $languageArr)
 				-region $luisAuthoringRegion `
 				-luisAuthoringKey $luisAuthoringKey `
 				-language $language `
-				-log $logFile
+				-log $logFile2
         
 			Write-Host "> Setting LUIS subscription key ..."
 			if ($luisApp) {
@@ -155,12 +156,12 @@ foreach ($language in $languageArr)
 					--accountName $luisAccountName `
 					--azureSubscriptionId $azAccount.id `
 					--resourceGroup $resourceGroup `
-					--armToken "$($azAccessToken.accessToken)" 2>> $logFile
+					--armToken "$($azAccessToken.accessToken)" 2>> $logFile2
 
 				if (-not $addKeyResult) {
 					$luisKeySet = $false
 					Write-Host "! Could not assign subscription key automatically. Review the log for more information. " -ForegroundColor DarkRed
-					Write-Host "! Log: $($logFile)" -ForegroundColor DarkRed
+					Write-Host "! Log: $($logFile1)" -ForegroundColor DarkRed
 					Write-Host "+ Please assign your subscription key manually in the LUIS portal." -ForegroundColor Magenta
 				}
 
@@ -174,7 +175,7 @@ foreach ($language in $languageArr)
 						--region $luisApp.region `
 						--intentName "l_$($lu.BaseName)" `
 						--dataFolder $dataFolder `
-						--dispatch "$(Join-Path $dataFolder "$($dispatchName).dispatch")") 2>> $logFile | Out-Null
+						--dispatch "$(Join-Path $dataFolder "$($dispatchName).dispatch")") 2>> $logFile1 | Out-Null
 				}
 
 				# Add to config 
@@ -206,7 +207,7 @@ foreach ($language in $languageArr)
 				foreach ($lu in $qnaFiles)
 				{
 					# Deploy QnA Knowledgebase
-					$qnaKb = DeployKB -name $name -lu_file $lu -qnaSubscriptionKey $qnaSubscriptionKey -log $logFile
+					$qnaKb = DeployKB -name $name -lu_file $lu -qnaSubscriptionKey $qnaSubscriptionKey -log $logFile1
        
 					if ($qnaKb) {
 						if ($useDispatch) {
@@ -218,7 +219,7 @@ foreach ($language in $languageArr)
 								--key $qnaSubscriptionKey `
 								--intentName "q_$($lu.BaseName)" `
 								--dataFolder $dataFolder `
-								--dispatch "$(Join-Path $dataFolder "$($dispatchName).dispatch")") 2>> $logFile | Out-Null
+								--dispatch "$(Join-Path $dataFolder "$($dispatchName).dispatch")") 2>> $logFile1 | Out-Null
 						}
 					
 						# Add to config
@@ -251,7 +252,7 @@ foreach ($language in $languageArr)
 		$dispatch = (dispatch create `
 			--dispatch "$(Join-Path $dataFolder "$($dispatchName).dispatch")" `
 			--dataFolder  $dataFolder `
-			--culture $language) 2>> $logFile
+			--culture $language) 2>> $logFile1
 
 		if (-not $dispatch) {
 			Write-Host "! Could not create Dispatch app. Review the log for more information." -ForegroundColor DarkRed
@@ -270,12 +271,12 @@ foreach ($language in $languageArr)
 				--region $luisAuthoringRegion `
 				--azureSubscriptionId $azAccount.id `
 				--resourceGroup $resourceGroup `
-				--armToken $azAccessToken.accessToken 2>> $logFile
+				--armToken $azAccessToken.accessToken 2>> $logFile1
 
 			if (-not $addKeyResult) {
 				$luisKeySet = $false
 				Write-Host "! Could not assign subscription key automatically. Review the log for more information. " -ForegroundColor DarkRed
-				Write-Host "! Log: $($logFile)" -ForegroundColor DarkRed
+				Write-Host "! Log: $($logFile1)" -ForegroundColor DarkRed
 				Write-Host "+ Please assign your subscription key manually in the LUIS portal." -ForegroundColor Magenta
 			}
 

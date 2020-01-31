@@ -2,34 +2,43 @@
   "cognitiveModels": {
     "en-us": {
       "dispatchModel": {
-        "authoringkey": "",
-        "appid": "",
-        "name": "",
-        "subscriptionkey": "",
-        "region": "",
-        "authoringRegion": ""
+        "type": "dispatch",
+        "region": "eastus2",
+        "subscriptionkey": "28418cd166f44d4fb60cf6f4cc8c0719",
+        "authoringkey": "8b7c66cff5c54467908c55a3596de078",
+        "authoringRegion": "westus",
+        "appid": "110a940a-dd60-4e5b-bf42-9cc4a4ffc6e3",
+        "name": "BOTTESTAPPen-us_Dispatch"
       },
       "languageModels": [
         {
-          "subscriptionkey": "",
-          "appid": "",
-          "id": "",
-          "version": "",
-          "region": "",
-          "name": "",
-          "authoringkey": "",
-          "authoringRegion": ""
+          "id": "General",
+          "authoringRegion": "westus",
+          "subscriptionkey": "28418cd166f44d4fb60cf6f4cc8c0719",
+          "version": "0.1",
+          "region": "eastus2",
+          "appid": "5dcbf85e-5e0b-4545-8d4c-56c6a7e56ad8",
+          "authoringkey": "8b7c66cff5c54467908c55a3596de078",
+          "name": "BOTTESTAPPen-us_General"
         }
       ],
       "knowledgebases": [
         {
-          "endpointKey": "",
-          "kbId": "",
-          "hostname": "",
-          "subscriptionKey": "",
-          "name": "",
-          "id": ""
-        }        
+          "id": "Chitchat",
+          "endpointKey": "7f695771-7cd2-41d0-be05-ac170994ae19",
+          "subscriptionKey": "3c9560fb508c4edf9e5f44d7388f06be",
+          "hostname": "https://bottestapp-qnahost-rjpe7eu.azurewebsites.net",
+          "kbId": "597a9442-43d2-4fb9-98af-449f531f7d9f",
+          "name": "Chitchat"
+        },
+        {
+          "id": "Faq",
+          "endpointKey": "7f695771-7cd2-41d0-be05-ac170994ae19",
+          "subscriptionKey": "3c9560fb508c4edf9e5f44d7388f06be",
+          "hostname": "https://bottestapp-qnahost-rjpe7eu.azurewebsites.net",
+          "kbId": "d1ea7848-9492-492b-ad8b-42dc71412a45",
+          "name": "Faq"
+        }
       ]
     }
   },

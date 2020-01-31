@@ -199,7 +199,7 @@
       "name": "[variables('botWebAppName')]",
       "location": "[parameters('location')]",
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+        "serverFarmId": "[concat('/subscriptions/', Subscription().SubscriptionId,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
         "siteConfig": {
           "webSocketsEnabled": true,
           "appSettings": [
@@ -306,7 +306,7 @@
         "enabled": true,
         "name": "[variables('qnaMakerWebAppName')]",
         "hostingEnvironment": "",
-        "serverFarmId": "[concat('/subscriptions/', subscription().id,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
+        "serverFarmId": "[concat('/subscriptions/', Subscription().SubscriptionId,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Web/serverfarms/', parameters('appServicePlanName'))]",
         "siteConfig": {
           "cors": {
             "allowedOrigins": [
